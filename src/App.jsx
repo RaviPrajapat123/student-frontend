@@ -215,7 +215,7 @@ function App() {
 
   const fetchStudents = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/all-students");
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/all-students`);
       setStudents(res.data);
     } catch (err) {
       console.error("Fetch failed", err);
