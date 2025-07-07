@@ -208,19 +208,11 @@ function App() {
   const [formData, setFormData] = useState({ name: '', email: '' });
   const [students, setStudents] = useState([]);
 
-  // 🔁 Fetch all students on load
-  useEffect(() => {
-    fetchStudents();
-  }, []);
-
-  const fetchStudents = async () => {
-    try {
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}/all-students`);
-      setStudents(res.data);
-    } catch (err) {
-      console.error("Fetch failed", err);
-    }
-  };
+useEffect(() => {
+  axios.get(`${process.env.REACT_APP_API_URL}/all-students`)
+    .then(res => console.log(res.data))
+    .catch(err => console.error(err));
+}, []);
 
   // 🔄 Handle input change
   const handleChange = (e) => {
