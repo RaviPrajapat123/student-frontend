@@ -224,6 +224,8 @@ function App() {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
+console.log(import.meta.env.VITE_API_URL);
+console.log(`${import.meta.env.VITE_API_URL}/add-student`);
 
   // 📤 Submit handler
   const handleSubmit = async (e) => {
