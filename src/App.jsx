@@ -200,36 +200,42 @@
 // export default App
 
 
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import.meta.env.VITE_API_URL
 
 function App() {
   const [formData, setFormData] = useState({ name: '', email: '' });
   const [students, setStudents] = useState([]);
 
-useEffect(() => {
-  axios.get(`${process.env.REACT_APP_API_URL}/all-students`)
-    .then(res => console.log(res.data))
-    .catch(err => console.error(err));
-}, []);
+  // 🔁 Fetch all students
+  const fetchStudents = () => {
+    axios.get(`${import.meta.env.VITE_API_URL}/all-students`)
+      .then(res => setStudents(res.data))
+      .catch(err => console.error(err));
+  };
 
-  // 🔄 Handle input change
+  useEffect(() => {
+    fetchStudents();
+  }, []);
+
+  // 🖊️ Input change handler
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  // 📤 Handle form submit
+  // 📤 Submit handler
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3000/add-student", formData);
+      await axios.post(`${process.env.REACT_APP_API_URL}/add-student`, formData);
       alert("Student Added");
       setFormData({ name: '', email: '' });
-      fetchStudents(); // ⬅️ refresh list
+      fetchStudents();
     } catch (err) {
       alert("Failed to add student");
+      console.error(err);
     }
   };
 
@@ -260,4 +266,3 @@ useEffect(() => {
 }
 
 export default App;
-
