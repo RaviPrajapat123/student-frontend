@@ -229,7 +229,7 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/add-student`, formData);
+      await axios.post(`${import.meta.env.VITE_API_URL}/add-student`, formData);
       alert("Student Added");
       setFormData({ name: '', email: '' });
       fetchStudents();
